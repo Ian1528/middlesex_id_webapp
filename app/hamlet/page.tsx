@@ -8,12 +8,30 @@ export default function Page() {
   const [id, setId] = useState<string | null>(null);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <GenerateID_Button setID={setId}/>
-      {id && 
-      <div className="items-center p-10">
-        <p className="mb-6 whitespace-pre-line">{id}</p>
+
+      <div className="grid grid-cols-2 items-center justify-center m-3 gap-3">
+        <div>
+          <GenerateID_Button setID={setId} />
+          {id && (
+            <div className="items-center p-10">
+              <p className="mb-6 whitespace-pre-line">{id}</p>
+            </div>
+          )}
+        </div>
+        <div>
+          <h1 className="grid place-items-center pb-4">
+            Check your answers with Ctrl+F and the Hamlet PDF below
+          </h1>
+          <div className="">
+            <iframe
+              src="/hamlet_pdf.pdf"
+              width="600"
+              height="800"
+              className="border-2 border-gray-300"
+            ></iframe>
+          </div>
+        </div>
       </div>
-      }
     </div>
   );
 }
@@ -26,7 +44,7 @@ function GenerateID_Button({setID}: {setID: React.Dispatch<SetStateAction<string
     setIsGenerating(true);
     // fetch the textfile from public directory
     
-    fetch("/api/python/get_ID/" + lines)
+    fetch("/api/python/hamlet/get_ID/" + lines)
       .then((response) => response.json())
       .then((data) => {
         setID(data);

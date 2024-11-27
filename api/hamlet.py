@@ -11,7 +11,10 @@ def removeJunk(text):
     text_clean = list()
     for line in text:
         addLine = True
-        if "Act" in line or line.isnumeric() or line == "" or line == "Dies" or "Scene " in line or "Exeunt" in line or line == "Sings":
+        lowercase = line.lower()
+        if "act" in lowercase or line.isnumeric() or line == "" or lowercase == "dies" or "scene " in lowercase or "exeunt" in lowercase or lowercase == "sings":
+            addLine = False
+        if "=" in line or "Enter" in line or "Exit" in line or "Re-enter" in line or "Exeunt" in line or "Enter Ghost" in line or "Enter KING" in line:
             addLine = False
         if line in names:
             text_clean.append("NAMEHERE") # still want to keep track of names
@@ -96,12 +99,12 @@ def getID(quoteChunks):
         finalID += char
         if char == "\n" or char == " ":
             wordCount += 1
-        if char in punct and wordCount > 45: # end of sentence and word count is large enough
+        if char in punct and wordCount > 30: # end of sentence and word count is large enough
             return cleanNames(finalID)
     
 
 file_path = os.path.join(os.path.dirname(__file__), 'hamlet_textfile.txt')
-names = ["PRINCE FORTINBRAS", "First Player", "Messenger", "Second Player", "HAMLET", "HORATIO", "First Clown", "Second Clown", "KING CLAUDIUS", "CLAUDIUS", "POLONIUS", "Ghost", "GHOST", "LORD POLONIUS", "LAERTES", "ROSENCRANTZ", "GUILDENSTERN", "OSRIC", "VOLTIMAND", "CORNELIUS", "MARCELLUS", "BARNARDO", "FRANCISCO", "REYNALDO", "FORTINBRAS", "QUEEN GERTRUDE", "OPHELIA", "All", "Servant", "Sailors", "Captain", "QUEEN", "KING", "father", "mother", "Gertrude"]
+names = ["PRINCE FORTINBRAS", "First Player", "Messenger", "Second Player", "HAMLET", "HORATIO", "First Clown", "Second Clown", "KING CLAUDIUS", "CLAUDIUS", "POLONIUS", "Ghost", "GHOST", "LORD POLONIUS", "LAERTES", "ROSENCRANTZ", "GUILDENSTERN", "OSRIC", "VOLTIMAND", "CORNELIUS", "MARCELLUS", "BARNARDO", "FRANCISCO", "REYNALDO", "FORTINBRAS", "QUEEN GERTRUDE", "OPHELIA", "All", "Servant", "Sailors", "Captain", "QUEEN", "KING", "father", "mother", "Gertrude", "Gravedigger"]
 
 f = open(file_path, 'r')
 
@@ -112,7 +115,7 @@ text_clean = removeJunk(text)
 quotes = chunkQuotes(text_clean)
 
 
-def generate_ID(n: int) -> str:
+def generate_Hamlet_ID(n: int) -> str:
     """
     generates an ID for Hamlet given the minimum number of lines
     Args:

@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 import os
-from hamlet import generate_ID
+from hamlet import generate_Hamlet_ID
+from iliad import generate_Iliad_ID
 app = Flask(__name__)
 
 @app.route("/api/python")
@@ -14,8 +15,11 @@ def test_input(output_string):
     with open(file_path, 'r') as file:
         output_string = file.read()
     return jsonify(output_string)
-    return jsonify({"output": output_string})
 
-@app.route("/api/python/get_ID/<n>")
-def get_ID(n):
-    return jsonify(generate_ID(n))
+@app.route("/api/python/iliad/get_ID/<n>")
+def get_Iliad_ID(n):
+    return jsonify(generate_Iliad_ID(n))
+
+@app.route("/api/python/hamlet/get_ID/<n>")
+def get_Hamlet_ID(n):
+    return jsonify(generate_Hamlet_ID(n))

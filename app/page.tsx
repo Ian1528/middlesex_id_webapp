@@ -1,17 +1,68 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button';
-
+import { Card, CardContent } from '@/components/ui/card';
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-4xl font-bold mb-6">Welcome to the Hamlet ID Generator!</h1>
+    <div className="flex flex-col items-center min-h-screen p-3">
+      <h1 className="text-4xl font-bold mb-6">Welcome to the Middlesex ID Generator!</h1>
       <p className="text-xl mb-8 text-center max-w-2xl">
-        Click the button below to get started
+        Choose one of the options below to get started
       </p>
-      <Link href="/hamlet" passHref>
-        <Button className="px-6 py-2">Get Started</Button>
-      </Link>
+      <div className="grid grid-cols-2 gap-3">
+        <BookCard link="hamlet" title="Hamlet" grade="11" />
+        <BookCard link="iliad" title="Iliad" grade="10" />
+      </div>
     </div>
   );
+}
+
+function BookCard({ link, title, grade }: { link: string, title: string, grade: "9" | "10" | "11" | "12" }) {
+  return (
+    <Link href={`/${link}`}>
+      <Card className="bg-white rounded-lg shadow-md">
+        <CardContent className="p-6">
+          <div className="flex flex-col gap-3 items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-[#000000]">
+              {title}
+            </h2>
+            <GradeLevel grade={grade} />
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
+  );
+}
+
+function GradeLevel({
+  grade,
+}: {
+  grade: "9" | "10" | "11" | "12";
+}) {
+  if (grade === "9") {
+    return (
+      <div className="bg-[#e6f7f2] text-[#1abc9c] font-medium px-3 py-1 rounded-full text-sm">
+        9th Grade
+      </div>
+    );
+  } else if (grade === "10") {
+    return (
+      <div className="bg-[#fef7f2] text-[#e67e22] font-medium px-3 py-1 rounded-full text-sm">
+        10th Grade
+      </div>
+    );
+  } else if (grade === "11"){
+      return (
+      <div className="bg-[#f2f7fe] text-[#3498db] font-medium px-3 py-1 rounded-full text-sm">
+        11th Grade
+      </div>
+    );
+  }
+  else {
+    return (
+      <div className="bg-[#f2f7fe] text-[#CF9FFF] font-medium px-3 py-1 rounded-full text-sm">
+        12th Grade
+      </div>
+    );
+  }
 }
