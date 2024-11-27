@@ -1,5 +1,6 @@
 import random
 import re
+import os
 def wordCountBlockLines(text):
     count = 0
     for word in " ".join(text).split():
@@ -14,6 +15,8 @@ def removeJunk(text):
             addLine = False
         if line in names:
             text_clean.append("NAMEHERE") # still want to keep track of names
+        if len(line) > 0 and (line[0] == '[' or line[-1] == ']'):
+            addLine = False
         # takes care of cases like "Enter Ghost" and "Enter KING"
         for name in names:
             if name in line:
@@ -57,7 +60,7 @@ def cleanNames(s):
     for name in names:
         if name == "All":
             continue
-        s = re.sub(name, "_____", s, flags=re.I)
+        s = re.sub(r"\b" + name + r"\b", "_____", s, flags=re.IGNORECASE)
     return s
 
 def getID(quoteChunks):
@@ -95,30 +98,31 @@ def getID(quoteChunks):
             wordCount += 1
         if char in punct and wordCount > 45: # end of sentence and word count is large enough
             return cleanNames(finalID)
+    
 
+file_path = os.path.join(os.path.dirname(__file__), 'hamlet_textfile.txt')
+names = ["PRINCE FORTINBRAS", "First Player", "Messenger", "Second Player", "HAMLET", "HORATIO", "First Clown", "Second Clown", "KING CLAUDIUS", "CLAUDIUS", "POLONIUS", "Ghost", "GHOST", "LORD POLONIUS", "LAERTES", "ROSENCRANTZ", "GUILDENSTERN", "OSRIC", "VOLTIMAND", "CORNELIUS", "MARCELLUS", "BARNARDO", "FRANCISCO", "REYNALDO", "FORTINBRAS", "QUEEN GERTRUDE", "OPHELIA", "All", "Servant", "Sailors", "Captain", "QUEEN", "KING", "father", "mother", "Gertrude"]
 
-
-f = open("hamlet.txt", "r")
-names = ["PRINCE FORTINBRAS", "First Player", "Messenger", "Second Player", "HAMLET", "HORATIO", "First Clown", "Second Clown", "KING CLAUDIUS", "CLAUDIUS", "POLONIUS", "Ghost", "LORD POLONIUS", "LAERTES", "ROSENCRANTZ", "GUILDENSTERN", "OSRIC", "VOLTIMAND", "CORNELIUS", "MARCELLUS", "BERNARDO", "FRANCISCO", "REYNALDO", "FORTINBRAS", "QUEEN GERTRUDE", "OPHELIA", "All", "Servant", "Sailors", "Captain"]
+f = open(file_path, 'r')
 
 text = f.read()
 text = text.split("\n")
 
 text_clean = removeJunk(text)
 quotes = chunkQuotes(text_clean)
-numLines = 0
-while numLines == 0:
-    try:
-        numLines = int(input("How many mininum lines for each ID? "))
-    except:
-        print("Not valid input")
 
-quotes = filterLength(quotes, numLines)
 
-again = "yes"
+def generate_ID(n: int) -> str:
+    """
+    generates an ID for Hamlet given the minimum number of lines
+    Args:
+        n (int): minimum number of lines
 
-while again == "yes" or again == "y":
-    print()
-    print(getID(quotes))
-    print()
-    again = input("Again? ").lower()
+    Returns:
+        str: the generated ID
+    """
+    global quotes
+    if n == 0:
+        return "Please enter a number greater than 0"
+    quotes = filterLength(quotes, int(n))
+    return getID(quotes)

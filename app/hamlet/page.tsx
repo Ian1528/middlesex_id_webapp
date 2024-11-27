@@ -9,7 +9,11 @@ export default function Page() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <GenerateID_Button setID={setId}/>
-      {id && <p className="text-4xl font-bold mb-6">Your ID is: {id}</p>}
+      {id && 
+      <div className="items-center p-10">
+        <p className="mb-6 whitespace-pre-line">{id}</p>
+      </div>
+      }
     </div>
   );
 }
@@ -22,7 +26,7 @@ function GenerateID_Button({setID}: {setID: React.Dispatch<SetStateAction<string
     setIsGenerating(true);
     // fetch the textfile from public directory
     
-    fetch("/api/python/test_input/" + lines)
+    fetch("/api/python/get_ID/" + lines)
       .then((response) => response.json())
       .then((data) => {
         setID(data);
