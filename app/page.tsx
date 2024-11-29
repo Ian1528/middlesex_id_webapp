@@ -9,15 +9,16 @@ export default function Home() {
       <p className="text-xl mb-8 text-center max-w-2xl">
         Choose one of the options below to get started
       </p>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         <BookCard link="hamlet" title="Hamlet" grade="11" />
         <BookCard link="iliad" title="Iliad" grade="10" />
+        <BookCard link="custom" title='Custom' grade="NONE" />
       </div>
     </div>
   );
 }
 
-function BookCard({ link, title, grade }: { link: string, title: string, grade: "9" | "10" | "11" | "12" }) {
+function BookCard({ link, title, grade }: { link: string, title: string, grade: string}) {
   return (
     <Link href={`/${link}`}>
       <Card className="bg-white rounded-lg shadow-md">
@@ -37,7 +38,7 @@ function BookCard({ link, title, grade }: { link: string, title: string, grade: 
 function GradeLevel({
   grade,
 }: {
-  grade: "9" | "10" | "11" | "12";
+  grade: string;
 }) {
   if (grade === "9") {
     return (
@@ -55,6 +56,13 @@ function GradeLevel({
       return (
       <div className="bg-[#f2f7fe] text-[#3498db] font-medium px-3 py-1 rounded-full text-sm">
         11th Grade
+      </div>
+    );
+  }
+  else if (grade === "NONE"){
+    return (
+      <div className="bg-[#f2f7fe] text-[#FF0000] font-medium px-3 py-1 rounded-full text-sm">
+        Custom
       </div>
     );
   }
