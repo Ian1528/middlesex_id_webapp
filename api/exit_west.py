@@ -1,5 +1,5 @@
 import nltk
-nltk.download('punkt', download_dir="/tmp/nltk_data")
+nltk.download('punkt_tab', download_dir="/tmp/nltk_data")
 
 from nltk.tokenize import sent_tokenize
 import random
