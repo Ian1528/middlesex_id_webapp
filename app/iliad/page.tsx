@@ -49,7 +49,11 @@ function GenerateID_Button({
     // fetch the textfile from public directory
 
     fetch("/api/python/iliad/get_ID/" + words)
-      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        return response.json()
+      }
+      )
       .then((data) => {
         setID(data);
         console.log(data);
