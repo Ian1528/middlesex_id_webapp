@@ -3,11 +3,12 @@ import os
 import secrets
 import uuid
 
+from .nlkt_modules import *
 from .hamlet import generate_Hamlet_ID
 from .iliad import generate_Iliad_ID
 from .exit_west import generate_exit_west_ID
 
-UPLOAD_FOLDER = './uploads'
+UPLOAD_FOLDER = '/tmp/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app = Flask(__name__)
