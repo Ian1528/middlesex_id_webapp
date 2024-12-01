@@ -1,3 +1,5 @@
+import nltk
+nltk.download('punkt')
 from nltk.tokenize import sent_tokenize
 import numpy as np
 import re
