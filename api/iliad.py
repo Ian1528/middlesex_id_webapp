@@ -1,3 +1,6 @@
+import nltk
+nltk.download('punkt', download_dir="/tmp/nltk_data")
+
 from nltk.tokenize import sent_tokenize
 import numpy as np
 import re
