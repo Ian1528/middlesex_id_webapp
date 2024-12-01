@@ -1,12 +1,11 @@
 from flask import Flask, request, jsonify, session, send_file
 import os
 import secrets
-import io
 import uuid
 
-from hamlet import generate_Hamlet_ID
-from iliad import generate_Iliad_ID
-from PyPDF2 import PdfReader
+from .hamlet import generate_Hamlet_ID
+from .iliad import generate_Iliad_ID
+from .exit_west import generate_exit_west_ID
 
 UPLOAD_FOLDER = './uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -22,6 +21,10 @@ def get_Iliad_ID(n):
 @app.route("/api/python/hamlet/get_ID/<n>")
 def get_Hamlet_ID(n):
     return jsonify(generate_Hamlet_ID(n))
+
+@app.route("/api/python/exit_west/get_ID/<n>")
+def get_EW_ID(n):
+    return jsonify(generate_exit_west_ID(n))
 
 @app.route("/api/python/custom/get_ID/<n>")
 def get_custom_ID(n):

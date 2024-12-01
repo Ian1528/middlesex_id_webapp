@@ -1,7 +1,7 @@
 from nltk.tokenize import sent_tokenize
-import random
 import numpy as np
 import re
+import os
 
 def clean_text(text):
     text_clean = ""
@@ -50,8 +50,9 @@ def cleanNames(s):
         s = re.sub(r"\b" + name + r"\b", "_____", s, flags=re.IGNORECASE)
     return s
 
+file_path = os.path.join(os.path.dirname(__file__), 'iliad_textfile.txt')
+f = open(file_path, encoding="utf8")
 
-f = open("C:/Users/Sneez/OneDrive/Desktop/Coding/Visual Studio Code/School/MX_Id_generator/iliad_edited.txt", encoding="utf8")
 names = ["ACHILLES", "AGAMEMNON", "HECTOR", "HELEN", "MENELAUS", "PARIS", "PATROCLUS", "PRIAM", "ZEUS", "HERA", "ATHENA", "APOLLO", "POSEIDON", "HERMES", "THETIS", "CALCHAS", "ANDROMACHE", "ASTYANAX", "BRISIES", "CHRYSEIS", "HECUBA", "ODYSSEUS"]
 text = f.read().split("\n")
 
