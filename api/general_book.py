@@ -14,7 +14,8 @@ def clean_text(text: str):
     text_clean = ""
     bad_characters = ["[", "]", "{", "}", "(", ")", "/", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
     for line in text_list_form:
-        if len(line) == 0 or line[0] == " ":
+        if len(line) == 0 or line[0] == " " or line[0] == "":
+            text_clean += "\n"
             continue
         if "BOOK" in line or "CHAPTER" in line or "THE ILIAD" in line or "HOMER" in line:
             continue
@@ -48,6 +49,19 @@ def generate_id(paragraphs: list[str], word_count):
 
 def generate_general_ID(n: int, filename: str, names: list[str]) -> str:
     file_path = os.path.join(os.path.dirname(__file__), filename)
+    f = open(file_path, encoding="utf8")
+
+    text = f.read()
+    text = clean_text(text)
+    paragraphs = text.split("\n\n")
+
+    id_with_names = generate_id(paragraphs, n)
+    return remove_names(id_with_names, names)
+
+def generate_general_public_ID(n: int, filename: str, names: list[str]) -> str:
+    curr_path = os.path.dirname(__file__)
+    parent_path = os.path.split(curr_path)[0]
+    file_path = os.path.join(parent_path, f'public/{filename}')
     f = open(file_path, encoding="utf8")
 
     text = f.read()

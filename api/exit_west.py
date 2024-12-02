@@ -31,7 +31,11 @@ def generate_id(paragraphs: list[str], word_count):
         index += 1
     return final_quote
 
-file_path = os.path.join(os.path.dirname(__file__), 'exit_west_textfile.txt')
+curr_path = os.path.dirname(__file__)
+# go back one directory
+parent_path = os.path.split(curr_path)[0]
+file_path = os.path.join(parent_path, 'public/exit_west_textfile.txt')
+
 f = open(file_path, encoding="utf8")
 
 text = f.read()
@@ -39,4 +43,4 @@ text = remove_names(text, ["Saeed", "Nadia"])
 paragraphs = text.split("\n\n")
 
 def generate_exit_west_ID(n: int) -> str:
-    return generate_id(paragraphs, n)
+    return generate_id(paragraphs, int(n))

@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { SetStateAction, useState } from "react";
 
 export default function Page() {
@@ -43,12 +44,16 @@ function GenerateID_Button({
 }) {
   const [words, setWords] = useState<number>(30);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [hideNames, sethideNames] = useState<boolean>(true);
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsGenerating(true);
     // fetch the textfile from public directory
-
-    fetch("/api/python/general/get_ID/?n=" + words + "&filename=exit_west_textfile.txt" + "&names=")
+    let names = "";
+    if(hideNames){
+        names = "Nadia,Saeed";
+    }
+    fetch("/api/python/general_public/get_ID/?n=" + words + "&filename=exit_west_textfile.txt" + "&names=" + names)
       .then((response) => {
         console.log(response);
         return response.json()
@@ -79,6 +84,8 @@ function GenerateID_Button({
         <Button disabled={isGenerating}>
           {!isGenerating ? "Generate ID" : "Generating ID..."}
         </Button>
+        <Switch id="hide_names" checked={hideNames} onCheckedChange={() => sethideNames(!hideNames)} />
+        <Label htmlFor="hide_names">Hide Names</Label>
       </div>
     </form>
   );

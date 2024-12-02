@@ -3,8 +3,8 @@ import os
 import secrets
 import uuid
 import nltk
-nltk.download('punkt', download_dir="tmp/nltk_data")
-nltk.data.path.append("tmp/nltk_data")
+nltk.download('punkt', download_dir="/tmp/nltk_data")
+nltk.data.path.append("/tmp/nltk_data")
 
 from .hamlet import generate_Hamlet_ID
 from .iliad import generate_Iliad_ID
