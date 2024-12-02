@@ -3,7 +3,7 @@ import os
 import secrets
 import uuid
 import nltk
-nltk.download('punkt', download_dir="/tmp/nltk_data")
+nltk.download('punkt_tab', download_dir="/tmp/nltk_data")
 nltk.data.path.append("/tmp/nltk_data")
 
 from .hamlet import generate_Hamlet_ID

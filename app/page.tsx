@@ -12,6 +12,8 @@ export default function Home() {
       <div className="grid grid-cols-3 gap-3">
         <BookCard link="hamlet" title="Hamlet" grade="11" />
         <BookCard link="iliad" title="Iliad" grade="10" />
+        <BookCard link="pride_and_prejudice" title="Pride and Prejudice" grade="10"/>
+        <BookCard link="exit_west" title="Exit West" grade="10" />
         <BookCard link="custom" title='Custom' grade="NONE" />
       </div>
     </div>
