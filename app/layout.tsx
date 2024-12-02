@@ -2,6 +2,7 @@ import './globals.css'
 import { cn } from "@/lib/utils";
 import { Inter } from 'next/font/google'
 import NavBar from '@/components/navBar';
+import Footer from '@/components/footer';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -23,10 +24,12 @@ export default function RootLayout({
         }
       >
         <NavBar />
-        <main>
+        <main className="flex-grow">
         {children}
         </main>
       </body>
+      <Footer />
+
     </html>
   )
 }
