@@ -42,27 +42,21 @@ function GenerateID_Button({
 }: {
   setID: React.Dispatch<SetStateAction<string | null>>;
 }) {
-  const [words, setWords] = useState<number>(30);
+  const [words, setWords] = useState<number>(40);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [hideNames, sethideNames] = useState<boolean>(true);
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsGenerating(true);
-    // fetch the textfile from public directory
+
     let names = "";
     if(hideNames){
         names = "Nadia,Saeed";
     }
-    fetch("/api/python/general_public/get_ID/?n=" + words + "&filename=exit_west_textfile.txt" + "&names=" + names)
-      .then((response) => {
-        console.log(response);
-        return response.json()
-      }
-      )
-      .then((data) => {
-        setID(data);
-        console.log(data);
-      });
+    const response = await fetch("/api/python/general_public/get_ID/?n=" + words + "&filename=exit_west_textfile.txt" + "&names=" + names)
+    const data = await response.json();
+    setID(data);
+
     setIsGenerating(false);
   };
   return (

@@ -44,12 +44,10 @@ function GenerateID_Button({setID}: {setID: React.Dispatch<SetStateAction<string
     setIsGenerating(true);
     // fetch the textfile from public directory
     
-    fetch("/api/python/hamlet/get_ID/" + lines)
-      .then((response) => response.json())
-      .then((data) => {
-        setID(data);
-        console.log(data);
-      });
+    const response = await fetch("/api/python/hamlet/get_ID/" + lines);
+    const data = await response.json();
+    setID(data);
+    
     setIsGenerating(false);
   };
   return (

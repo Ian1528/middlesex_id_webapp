@@ -47,9 +47,11 @@ def generate_id(paragraphs: list[str], word_count):
         index += 1
     return final_quote
 
-def generate_general_ID(n: int, filename: str, names: list[str]) -> str:
-    file_path = os.path.join(os.path.dirname(__file__), filename)
-    f = open(file_path, encoding="utf8")
+def generate_general_ID(n: int, file_path: str, names: list[str]) -> str:
+    curr_path = os.path.dirname(__file__)
+    parent_path = os.path.split(curr_path)[0]
+    absolute_file_path = os.path.join(parent_path, file_path)
+    f = open(absolute_file_path, encoding="utf8")
 
     text = f.read()
     text = clean_text(text)

@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useState, useEffect } from "react";
 import UploadPDF from "@/components/PDFUpload";
 
 export default function Page() {
@@ -10,7 +10,7 @@ export default function Page() {
   const [id, setId] = useState<string | null>(null);
 
   return (
-    <div className="grid grid-cols-2 items-center min-h-screen gap-2 max-w-max mx-auto">
+    <div className={textFile ? "grid grid-cols-2 items-center min-h-screen gap-2 max-w-max mx-auto" : "grid grid-cols-1 items-center min-h-screen gap-2 max-w-max mx-auto"}>
         {
           textFile && (
             <div>
@@ -32,29 +32,27 @@ export default function Page() {
 }
 
 function GenerateID_Button({setID}: {setID: React.Dispatch<SetStateAction<string | null>>}) {
-  const [lines, setLines] = useState<number>(0);
+  const [lines, setLines] = useState<number>(40);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [names, setNames] = useState<string>("");
+
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsGenerating(true);
-    // fetch the textfile from public directory
-    
-    fetch("/api/python/custom/get_ID/" + lines)
-      .then((response) => response.json())
-      .then((data) => {
-        setID(data);
-        console.log(data);
-      });
+    const response = await fetch("/api/python/get_custom_ID/?n=" + lines + "&names=" + names)
+    const data = await response.json();
+    setID(data);
+
     setIsGenerating(false);
   };
   return (
     <form onSubmit={handleFormSubmit}>
       <div className="flex flex-col m-4 gap-4">
         <div>
-          <h1 className="grid place-items-center pb-4 font-bold">
-            Choose the minimum number of lines for the ID
+          <h1 className="grid place-items-center pb-4 font-bold ">
+            Configuration Settings
           </h1>
-          <Label htmlFor="lines">Minimum Lines</Label>
+          <Label htmlFor="lines">Minimum Words</Label>
           <Input
             type="number"
             id="lines"
@@ -62,8 +60,16 @@ function GenerateID_Button({setID}: {setID: React.Dispatch<SetStateAction<string
             onChange={(e) => setLines(Number(e.target.value))}
             required
           />
+          <Label htmlFor="names">Names to blur (enter comma separated values)</Label>
+          <Input
+            type="text"
+            id="names"
+            value={names}
+            placeholder="ex: John, Jane, Mary"
+            onChange={(e) => setNames(e.target.value)}
+          />
         </div>
-        <Button disabled={isGenerating}>
+        <Button disabled={isGenerating} type="submit">
           {!isGenerating ? "Generate ID" : "Generating ID..."}
         </Button>
       </div>

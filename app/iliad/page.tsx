@@ -41,23 +41,17 @@ function GenerateID_Button({
 }: {
   setID: React.Dispatch<SetStateAction<string | null>>;
 }) {
-  const [words, setWords] = useState<number>(30);
+  const [words, setWords] = useState<number>(40);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsGenerating(true);
     // fetch the textfile from public directory
 
-    fetch("/api/python/iliad/get_ID/" + words)
-      .then((response) => {
-        console.log(response);
-        return response.json()
-      }
-      )
-      .then((data) => {
-        setID(data);
-        console.log(data);
-      });
+    const response = await fetch("/api/python/iliad/get_ID/" + words);
+    const data = await response.json();
+    setID(data);
+
     setIsGenerating(false);
   };
   return (
