@@ -1,6 +1,3 @@
-import nltk
-nltk.download('punkt', download_dir="/tmp/nltk_data")
-
 from nltk.tokenize import sent_tokenize
 import random
 import re
@@ -58,7 +55,4 @@ def generate_general_ID(n: int, filename: str, names: list[str]) -> str:
     paragraphs = text.split("\n\n")
 
     id_with_names = generate_id(paragraphs, n)
-    
-    if names is None:
-        return id_with_names
     return remove_names(id_with_names, names)
