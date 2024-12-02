@@ -3,13 +3,13 @@ import os
 import secrets
 import uuid
 import nltk
-nltk.download('punkt', download_dir="/tmp/nltk_data")
-nltk.data.path.append("/tmp/nltk_data")
+nltk.download('punkt', download_dir="tmp/nltk_data")
+nltk.data.path.append("tmp/nltk_data")
 
 from .hamlet import generate_Hamlet_ID
 from .iliad import generate_Iliad_ID
 from .exit_west import generate_exit_west_ID
-from .general_book import generate_general_ID
+from .general_book import generate_general_ID, generate_general_public_ID
 
 UPLOAD_FOLDER = '/tmp/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -26,7 +26,7 @@ def get_Iliad_ID(n):
 def get_Hamlet_ID(n):
     return jsonify(generate_Hamlet_ID(n))
 
-@app.route("/api/python/general/get_ID")
+@app.route("/api/python/general_public/get_ID")
 def get_general_ID():
     args = request.args
 
@@ -35,6 +35,7 @@ def get_general_ID():
         n = int(args.get('n'))
         if "names" in args.keys():
             names = args.get('names').split(',')
+            names = [name.strip() for name in names]
         else:
             names = []
         if len(names) == 1 and names[0] == '':
@@ -42,7 +43,7 @@ def get_general_ID():
     except Exception as e:
         return jsonify({"error": f"Invalid request: {str(e)}"}), 400
     
-    return jsonify(generate_general_ID(n, filename, names))
+    return jsonify(generate_general_public_ID(n, filename, names))
 
 @app.route("/api/python/exit_west/get_ID/<n>")
 def get_EW_ID(n):
