@@ -7,7 +7,7 @@ export default function Home() {
     <div className="flex flex-col items-center min-h-screen p-3">
       <h1 className="text-4xl font-bold mb-6">Welcome to the Middlesex ID Generator!</h1>
       <p className="text-xl mb-8 text-center max-w-2xl">
-        Choose one of the options below to get started
+        Choose one of the options below to get started, or click "help" for instructions
       </p>
       <div className="grid grid-cols-3 gap-3">
         <BookCard link="hamlet" title="Hamlet" grade="11" />
