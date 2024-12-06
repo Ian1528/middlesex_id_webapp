@@ -19,13 +19,26 @@ app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route("/api/python/iliad/get_ID/<n>")
-def get_Iliad_ID(n):
-    return jsonify(generate_Iliad_ID(n))
+@app.route("/api/python/iliad/get_ID")
+def get_Iliad_ID():
+    args = request.args
+    try:
+        n = int(args.get("n"))
+        hide_names = args.get("hide_names", "true").lower() == "true"
+    except Exception as e:
+        return jsonify(f"error Invalid request: {str(e)}"), 400
+    return jsonify(generate_Iliad_ID(n, hide_names))
 
-@app.route("/api/python/hamlet/get_ID/<n>")
-def get_Hamlet_ID(n):
-    return jsonify(generate_Hamlet_ID(n))
+@app.route("/api/python/hamlet/get_ID")
+def get_Hamlet_ID():
+    args = request.args
+    try:
+        n = int(args.get("n"))
+        hide_names = args.get("hide_names", "true").lower() == "true"
+    except Exception as e:
+        return jsonify(f"error Invalid request: {str(e)}"), 400
+    
+    return jsonify(generate_Hamlet_ID(n, hide_names))
 @app.route("/api/python/get_custom_ID")
 def get_custom_ID():
     args = request.args

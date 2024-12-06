@@ -3,12 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { SetStateAction, useState } from "react";
+import { Switch } from "@/components/ui/switch";
 
 export default function Page() {
   const [id, setId] = useState<string | null>(null);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-
+              ID's are drawn from the following books in the Iliad:
+      1, 2 (1-572), 3, 4 (1-98), 6 (1-137; 282-631), 9 (1-524), 16 (1-302; 703-1017), 18 (1-414), 22, 24 (1-36 and 413-944) 
+      <br></br>
       <div className="grid grid-cols-2 items-center justify-center m-3 gap-3">
         <div>
           <GenerateID_Button setID={setId} />
@@ -43,12 +46,14 @@ function GenerateID_Button({
 }) {
   const [words, setWords] = useState<number>(40);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [hideNames, sethideNames] = useState<boolean>(true);
+
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsGenerating(true);
     // fetch the textfile from public directory
 
-    const response = await fetch("/api/python/iliad/get_ID/" + words);
+    const response = await fetch("/api/python/iliad/get_ID?n=" + words + "&hide_names=" + hideNames);
     const data = await response.json();
     setID(data);
 
@@ -57,6 +62,7 @@ function GenerateID_Button({
   return (
     <form onSubmit={handleFormSubmit}>
       <div className="flex flex-col m-4 gap-4">
+
         <div>
           <h1 className="grid place-items-center pb-4 font-bold">
             Choose the minimum number of words for the ID
@@ -73,6 +79,8 @@ function GenerateID_Button({
         <Button disabled={isGenerating}>
           {!isGenerating ? "Generate ID" : "Generating ID..."}
         </Button>
+        <Switch id="hide_names" checked={hideNames} onCheckedChange={() => sethideNames(!hideNames)} />
+        <Label htmlFor="hide_names">Hide Names</Label>
       </div>
     </form>
   );
