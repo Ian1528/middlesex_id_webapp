@@ -6,7 +6,7 @@ import Footer from '@/components/footer';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Hamlet ID Generator',
+  title: 'Middlesex ID Generator',
   description: 'For Middlesex School',
 }
 
@@ -27,8 +27,8 @@ export default function RootLayout({
         <main className="flex-grow">
         {children}
         </main>
+        <Footer />
       </body>
-      <Footer />
 
     </html>
   )

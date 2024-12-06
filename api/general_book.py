@@ -1,8 +1,10 @@
 from nltk.tokenize import sent_tokenize
+import docx
 import random
 import re
 import numpy as np
 import os
+import json
 
 def remove_names(s, names):
     for name in names:
@@ -22,6 +24,8 @@ def clean_text(text: str):
         if line[0] in bad_characters or line[-1] in bad_characters:
             continue
         if line.isnumeric():
+            continue
+        if line[0].isnumeric() and line[-1].isnumeric():
             continue
         text_clean += line + "\n"
     return text_clean
@@ -72,3 +76,20 @@ def generate_general_public_ID(n: int, filename: str, names: list[str]) -> str:
 
     id_with_names = generate_id(paragraphs, n)
     return remove_names(id_with_names, names)
+
+
+def generate_tewwg_id(n: int, names: list[str]) -> str:
+    file_path = os.path.join(os.path.dirname(__file__), 'tewwg.json')
+    with open(file_path, "r") as f:
+        paragraphs = json.load(f)
+    id_with_names = generate_id(paragraphs, n)
+    return remove_names(id_with_names, names)
+
+def docx_to_text_string(word_doc_path: str) -> str:
+    doc = docx.Document(word_doc_path)
+    txt = ""
+    for para in doc.paragraphs:
+        if para.text == "":
+            continue
+        txt += para.text + "\n" + "\n"
+    return txt

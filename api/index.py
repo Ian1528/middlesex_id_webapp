@@ -11,7 +11,7 @@ nltk.data.path.append(nltk_downlaod_dir)
 
 from .hamlet import generate_Hamlet_ID
 from .iliad import generate_Iliad_ID
-from .general_book import generate_general_ID, generate_general_public_ID
+from .general_book import generate_general_ID, generate_general_public_ID, generate_tewwg_id
 
 UPLOAD_FOLDER = '/tmp/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -60,6 +60,8 @@ def get_general_ID():
     except Exception as e:
         return jsonify(f"error Invalid request: {str(e)}"), 400
     
+    if filename == "tewwg.docx":
+        return jsonify(generate_tewwg_id(n, names))
     return jsonify(generate_general_public_ID(n, filename, names))
 
 @app.route("/api/python/upload_text", methods=["POST"])
