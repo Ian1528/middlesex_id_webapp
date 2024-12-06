@@ -51,7 +51,7 @@ function GenerateID_Button({
 
     let names = "";
     if(hideNames){
-        names = "";
+        names = "Janie,Joe,Logan,Pheoby,Nanny";
     }
     const response = await fetch("/api/python/general_public/get_ID/?n=" + words + "&filename=tewwg.docx" + "&names=" + names)
     const data = await response.json();

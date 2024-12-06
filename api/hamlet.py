@@ -1,11 +1,8 @@
 import random
 import re
 import os
-def wordCountBlockLines(text):
-    count = 0
-    for word in " ".join(text).split():
-        count += 1
-    return count
+from nltk.tokenize import sent_tokenize
+import numpy as np
 
 def removeJunk(text):
     text_clean = list()
@@ -16,14 +13,16 @@ def removeJunk(text):
             addLine = False
         if "=" in line or "Enter" in line or "Exit" in line or "Re-enter" in line or "Exeunt" in line or "Enter Ghost" in line or "Enter KING" in line:
             addLine = False
-        if line in names:
-            text_clean.append("NAMEHERE") # still want to keep track of names
-        if len(line) > 0 and (line[0] == '[' or line[-1] == ']'):
-            addLine = False
         # takes care of cases like "Enter Ghost" and "Enter KING"
         for name in names:
-            if name in line:
-                addLine = False
+            if line.strip().find(name.upper()) == 0:
+                # case where name and speech are same line, i.e.
+                # BARNARDO  Who's there!
+                text_clean.append("NAMEHERE")
+                rest_of_line = line[len(name):]
+                if len(rest_of_line) > 0:
+                    text_clean.append(rest_of_line)
+                addLine = False # because we already added it, we don't need to keep going
                 break
         if addLine:
             text_clean.append(line)
@@ -58,64 +57,49 @@ def filterLength(quoteChunks, n):
         if len(quotes) >= n:
             filteredQuotes.append(quotes)
     return filteredQuotes
-        
+
 def cleanNames(s):
     for name in names:
-        if name == "All":
+        if name == "All" or name == "OTHER":
             continue
         s = re.sub(r"\b" + name.lower() + r"\b", "_____", s, flags=re.IGNORECASE)
     return s
 
-def getID(quoteChunks):
-    block = random.choice(quoteChunks) # first choose a random block of sentences
-    stringQuote = "\n".join(block)
 
-    totalWords = wordCountBlockLines(block)
-    # if the quote isn't long enough, just return it
-    if (totalWords < 50):
-        return cleanNames(stringQuote)
+def filter_paragraph_length(paragraphs: list[str], word_count):
+    return ["\n".join(p) for p in paragraphs if len("\n".join(p).split()) >= word_count]
 
-    startWordIndex = random.randint(0, totalWords - 50)
+def generate_id(paragraphs: list[str], word_count):
+    filtered_paragraphs = filter_paragraph_length(paragraphs, word_count)
+    paragraph = random.choice(filtered_paragraphs)
+    sentences = sent_tokenize(paragraph)
+    sentence_lengths = [len(s.split()) for s in sentences]
 
-    # find index of where the sentence should start
-    lastSentenceIndex = 0
-    punct = [".", "!", "?"]
-    wordCount = 0
-    for i in range(len(stringQuote)):
-        char = stringQuote[i]
-        if char == "\n" or char == " ":
-            wordCount += 1
-        elif char in punct:
-            lastSentenceIndex = i+1
-        if wordCount == startWordIndex:
+    for end_index in range(len(sentences)-1, -1, -1):
+        if sum(sentence_lengths[end_index:]) >= word_count:
             break
-    finalID = ""
-    wordCount = 0
-
-    punct = [".", "!", "?", ";"]
-    for i in range(lastSentenceIndex, len(stringQuote)):
-        # go from the start of the sentence to the end of the whole quote
-        char = stringQuote[i]
-        finalID += char
-        if char == "\n" or char == " ":
-            wordCount += 1
-        if char in punct and wordCount > 30: # end of sentence and word count is large enough
-            return cleanNames(finalID)
     
+    index = np.random.randint(0, end_index+1)
+    final_quote = ""
+    while len(final_quote.split()) < word_count:
+        final_quote += sentences[index] + " "
+        index += 1
+    return final_quote
 
 file_path = os.path.join(os.path.dirname(__file__), 'hamlet_textfile.txt')
-names = ["PRINCE FORTINBRAS", "First Player", "Messenger", "Second Player", "HAMLET", "HORATIO", "First Clown", "Second Clown", "KING CLAUDIUS", "CLAUDIUS", "POLONIUS", "Ghost", "GHOST", "LORD POLONIUS", "LAERTES", "ROSENCRANTZ", "GUILDENSTERN", "OSRIC", "VOLTIMAND", "CORNELIUS", "MARCELLUS", "BARNARDO", "FRANCISCO", "REYNALDO", "FORTINBRAS", "QUEEN GERTRUDE", "OPHELIA", "All", "Servant", "Sailors", "Captain", "QUEEN", "KING", "father", "mother", "Gertrude", "Gravedigger"]
-
+names = ["PRINCE FORTINBRAS", "First Player", "Messenger", "Second Player", "HAMLET", "HORATIO", "First Clown", "Second Clown", "KING CLAUDIUS", "CLAUDIUS", "POLONIUS", "Ghost", "GHOST", "LORD POLONIUS", "LAERTES", "ROSENCRANTZ", "GUILDENSTERN", "OSRIC", "VOLTIMAND", "CORNELIUS", "MARCELLUS", "OTHER", "BARNARDO", "FRANCISCO", "REYNALDO", "FORTINBRAS", "QUEEN GERTRUDE", "OPHELIA", "All", "Servant", "Sailors", "Captain", "QUEEN", "KING", "Gertrude", "Gravedigger", "GENTLEMAN", "SAILOR", "DOCTOR", "AMBASSADOR", "LORD", "PLAYER KING", "PLAYER QUEEN", "PLAYER"]
+lowercase_names = [name.lower() for name in names]
 f = open(file_path, 'r')
 
 text = f.read()
+text = re.sub(r'\[.*?\]', '', text)
 text = text.split("\n")
 
 text_clean = removeJunk(text)
 quotes = chunkQuotes(text_clean)
 
 
-def generate_Hamlet_ID(n: int) -> str:
+def generate_Hamlet_ID(n: int, hide_names: bool) -> str:
     """
     generates an ID for Hamlet given the minimum number of lines
     Args:
@@ -125,7 +109,7 @@ def generate_Hamlet_ID(n: int) -> str:
         str: the generated ID
     """
     global quotes
-    if n == 0:
-        return "Please enter a number greater than 0"
-    quotes = filterLength(quotes, int(n))
-    return getID(quotes)
+    quote = generate_id(quotes, int(n))
+    if hide_names:
+        return cleanNames(quote)
+    return quote

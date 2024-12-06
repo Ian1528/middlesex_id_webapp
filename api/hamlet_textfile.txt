@@ -295,12 +295,6 @@ Let's do 't, I pray, and I this morning know
 Where we shall find him most convenient.
 [They exit.]
 
-Scene 2
-=======
-[Flourish. Enter Claudius, King of Denmark, Gertrude the
-Queen, the Council, as Polonius, and his son Laertes,
-Hamlet, with others, among them Voltemand and
-Cornelius.]
 
 
 KING
@@ -1580,9 +1574,7 @@ Come.
 [They exit.]
 
 Scene 2
-=======
-[Flourish. Enter King and Queen, Rosencrantz and
-Guildenstern and Attendants.]
+
 
 
 KING
@@ -2447,9 +2439,7 @@ ACT 3
 =====
 
 Scene 1
-=======
-[Enter King, Queen, Polonius, Ophelia, Rosencrantz,
-Guildenstern, and Lords.]
+
 
 
 KING
@@ -3835,9 +3825,7 @@ ACT 4
 =====
 
 Scene 1
-=======
-[Enter King and Queen, with Rosencrantz and
-Guildenstern.]
+
 
 
 KING
