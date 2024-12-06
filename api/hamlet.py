@@ -63,7 +63,7 @@ def cleanNames(s):
     for name in names:
         if name == "All":
             continue
-        s = re.sub(r"\b" + name + r"\b", "_____", s, flags=re.IGNORECASE)
+        s = re.sub(r"\b" + name.lower() + r"\b", "_____", s, flags=re.IGNORECASE)
     return s
 
 def getID(quoteChunks):
@@ -73,7 +73,7 @@ def getID(quoteChunks):
     totalWords = wordCountBlockLines(block)
     # if the quote isn't long enough, just return it
     if (totalWords < 50):
-        return stringQuote
+        return cleanNames(stringQuote)
 
     startWordIndex = random.randint(0, totalWords - 50)
 
