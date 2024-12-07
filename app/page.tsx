@@ -15,8 +15,8 @@ export default function Home() {
         </div>
         <div className="flex flex-col col-start-2 gap-3">
           <BookCard link="iliad" title="Iliad" grade="10"/>
-          <BookCard link="pride_and_prejudice" title="Pride and Prejudice" grade="10"/>
           <BookCard link="exit_west" title="Exit West" grade="10"/>
+          <BookCard link="pride_and_prejudice" title="Pride and Prejudice" grade="10"/>
         </div>
         <div className="flex flex-col col-start-3 gap-3">
           <BookCard link="hamlet" title="Hamlet" grade="11"/>
