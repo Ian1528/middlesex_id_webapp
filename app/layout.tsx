@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 import { Inter } from 'next/font/google'
 import NavBar from '@/components/navBar';
 import Footer from '@/components/footer';
+import { Analytics } from "@vercel/analytics/react"
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -28,8 +30,8 @@ export default function RootLayout({
         {children}
         </main>
         <Footer />
+        <Analytics />
       </body>
-
     </html>
   )
 }
