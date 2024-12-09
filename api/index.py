@@ -3,6 +3,7 @@ import os
 import secrets
 import uuid
 import nltk
+import json
 
 curr_dir = os.path.dirname(__file__)
 parent_dir = os.path.split(curr_dir)[0]
