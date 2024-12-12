@@ -10,6 +10,11 @@ export default function Page(){
                     To hide names, manually enter the list of characters separated by commas.
                 </li>
             </ul>
+            <h1 className="text-lg font-bold p-10">Disclaimer</h1>
+            <p className="text whitespace-pre-line">
+                Generated IDs are pulled randomly from the books, and so may not reflect the passages which are most likely to be tested/which are most important to know. 
+                Use this as a study tool, but don't let this replace your reading!
+            </p>
         </div>
     );
 }

@@ -8,7 +8,12 @@ export default function Page() {
   const [id, setId] = useState<string | null>(null);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-
+      <header>
+        <p className="text-xs text-left p-5">
+          Disclaimer: these IDs are pulled randomly from the books, and so may not reflect the passages which are most likely to be tested/which are most important to know. 
+          Use this as a study tool, but don't let this replace your reading!
+        </p>
+      </header>
       <div className="grid grid-cols-2 items-center justify-center m-3 gap-3">
         <div>
           <GenerateID_Button setID={setId} />
