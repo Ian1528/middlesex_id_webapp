@@ -37,6 +37,12 @@ const books: { [id: string]: BookInfo; } = {
       "book_src": "/unbearable_lightness.pdf",
       "names": "Tereza,Tomas,Sabina,Simon,Franz",
       "format_src": "unbearable_lightness.json",
+    },
+    "little_women":{
+      "title": "Little Women",
+      "book_src": "/little_women_book_1.pdf",
+      "names":"Jo,Meg,Beth,Amy,Laurie",
+      "format_src": "little_women.json"
     }
 }
 export function generateStaticParams() {
@@ -44,7 +50,9 @@ export function generateStaticParams() {
     { bookname: "exit_west" },
     { bookname: "pride_and_prejudice" },
     { bookname: "tewwg" },
-    { bookname: "thecolony"}
+    { bookname: "thecolony"},
+    { bookname: "unbearable_lightness"},
+    { bookname: "little_women"},
   ];
 }
 // Multiple versions of this page will be statically generated
