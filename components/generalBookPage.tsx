@@ -10,7 +10,7 @@ export default function GeneralBookPage({bookSrc, names, formatSrc}: {bookSrc: s
         </div>
         <div>
           <h1 className="grid place-items-center pb-4">
-            Check your answers with Ctrl+F
+            Check your answers with Ctrl+F. Note! If this doesn't work, trying using Chrome instead of Safari.
           </h1>
           <div className="">
             <iframe

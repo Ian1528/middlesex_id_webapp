@@ -24,7 +24,19 @@ const books: { [id: string]: BookInfo; } = {
         "title": "Their Eyes Were Watching God",
         "book_src": "/tewwg.pdf",
         "names": "Janie,Joe,Logan,Pheoby,Nanny",
-        "format_src": "tewwg.docx"
+        "format_src": "tewwg.json"
+    },
+    "thecolony":{
+      "title": "The Colony",
+      "book_src": "/thecolony.pdf",
+      "names": "James,Lloyd,Masson,mair\u00e9ad, Francis",
+      "format_src": "thecolony.json"
+    },
+    "unbearable_lightness":{
+      "title": "The Unbearable Lightness of Being",
+      "book_src": "/unbearable_lightness.pdf",
+      "names": "Tereza,Tomas,Sabina,Simon,Franz",
+      "format_src": "unbearable_lightness.json",
     }
 }
 export function generateStaticParams() {
@@ -32,6 +44,7 @@ export function generateStaticParams() {
     { bookname: "exit_west" },
     { bookname: "pride_and_prejudice" },
     { bookname: "tewwg" },
+    { bookname: "thecolony"}
   ];
 }
 // Multiple versions of this page will be statically generated

@@ -54,7 +54,7 @@ export default function GenerateID_Button({
       </form>
         {id && (
             <div className="items-center p-10">
-              <p className="mb-6 whitespace-normal">{id}</p>
+              <p className="mb-6 whitespace-pre-line">{id}</p>
             </div>
           )}
       </div>

@@ -23,7 +23,7 @@ export default function Page() {
         </div>
         <div>
           <h1 className="grid place-items-center pb-4">
-            Check your answers with Ctrl+F and the Iliad PDF below
+            Check your answers with Ctrl+F and the Iliad PDF below. If this doesn't work, trying using Chrome instead of Safari.
           </h1>
           <div className="">
             <iframe
@@ -65,7 +65,7 @@ function GenerateID_Button({
 
         <div>
           <h1 className="grid place-items-center pb-4 font-bold">
-            Choose the minimum number of words for the ID
+            Choose the minimum number of words for the ID. 
           </h1>
           <Label htmlFor="lines">Minimum Words</Label>
           <Input

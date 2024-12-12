@@ -77,6 +77,43 @@ def generate_general_public_ID(n: int, filename: str, names: list[str]) -> str:
     id_with_names = generate_id(paragraphs, n)
     return remove_names(id_with_names, names)
 
+def generate_thecolony_id(n: int, names: list[str]) -> str:
+    file_path = os.path.join(os.path.dirname(__file__), 'thecolony.json')
+    with open(file_path, "r") as f:
+        paragraphs = json.load(f)
+    i = np.random.randint(0, len(paragraphs)) # paragraph index counter
+    final_quote = ""
+    while len(final_quote.split()) < n:
+        paragraph = paragraphs[i]
+        sentences = sent_tokenize(paragraph)
+        sentence_lengths = [len(s.split()) for s in sentences]
+
+        for end_index in range(len(sentences)-1, -1, -1):
+            if sum(sentence_lengths[end_index:]) >= n:
+                break
+        
+        index = np.random.randint(0, end_index+1)
+        for index in range(len(sentences)):
+            final_quote += sentences[index] + " "
+            if len(final_quote.split()) > n:
+                return remove_names(final_quote, names)
+        i += 1
+        final_quote += "\n"
+    return remove_names(final_quote, names)
+
+def generate_json_file_id(n: int, file_name: str, names: list[str]) -> str:
+    file_path = os.path.join(os.path.dirname(__file__), file_name)
+    with open(file_path, "r") as f:
+        paragraphs = json.load(f)
+    id_with_names = generate_id(paragraphs, n)
+    return remove_names(id_with_names, names)
+
+def generate_tewwg_id(n: int, names: list[str]) -> str:
+    file_path = os.path.join(os.path.dirname(__file__), 'tewwg.json')
+    with open(file_path, "r") as f:
+        paragraphs = json.load(f)
+    id_with_names = generate_id(paragraphs, n)
+    return remove_names(id_with_names, names)
 
 def generate_tewwg_id(n: int, names: list[str]) -> str:
     file_path = os.path.join(os.path.dirname(__file__), 'tewwg.json')
