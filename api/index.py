@@ -3,6 +3,7 @@ import os
 import secrets
 import uuid
 import nltk
+import json
 
 curr_dir = os.path.dirname(__file__)
 parent_dir = os.path.split(curr_dir)[0]
@@ -11,7 +12,7 @@ nltk.data.path.append(nltk_downlaod_dir)
 
 from .hamlet import generate_Hamlet_ID
 from .iliad import generate_Iliad_ID
-from .general_book import generate_general_ID, generate_general_public_ID, generate_tewwg_id
+from .general_book import generate_general_ID, generate_general_public_ID, generate_tewwg_id, generate_thecolony_id, generate_json_file_id
 
 UPLOAD_FOLDER = '/tmp/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -73,8 +74,10 @@ def get_general_ID():
     except Exception as e:
         return jsonify(f"error Invalid request: {str(e)}"), 400
     
-    if filename == "tewwg.docx":
-        return jsonify(generate_tewwg_id(n, names))
+    if filename =="thecolony.json":
+        return jsonify(generate_thecolony_id(n, names))
+    elif filename[-4:] == "json":
+        return jsonify(generate_json_file_id(n, filename, names))
     return jsonify(generate_general_public_ID(n, filename, names))
 
 @app.route("/api/python/upload_text", methods=["POST"])

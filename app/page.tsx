@@ -9,7 +9,7 @@ export default function Home() {
       <p className="text-xl mb-8 text-center max-w-2xl">
         Choose one of the options below to get started, or click "help" for instructions
       </p>
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-5 gap-3">
         <div className="flex flex-col col-start-1 gap-3">
           <BookCard link="tewwg" title="Their Eyes Were Watching God" grade="9"/>
         </div>
@@ -21,7 +21,11 @@ export default function Home() {
         <div className="flex flex-col col-start-3 gap-3">
           <BookCard link="hamlet" title="Hamlet" grade="11"/>
         </div>
-        <div className="flex flex-col col-start-4 gap-4">
+        <div className="flex flex-col col-start-4 gap-3">
+          <BookCard link="thecolony" title="The Colony" grade="12" />
+          <BookCard link="unbearable_lightness" title="The Unbearable Lightness of Being" grade="12"/>
+        </div>
+        <div className="flex flex-col col-start-5 gap-4">
           <BookCard link="custom" title='Custom' grade="NONE"/>
         </div>
       </div>
