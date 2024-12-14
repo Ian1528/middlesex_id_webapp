@@ -11,7 +11,6 @@ export default function GeneralBookPage({
 }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <div className="grid grid-cols-2 items-center justify-center m-3 gap-3">
         <header>
           <p className="text-xs text-left p-5">
             Disclaimer: these IDs are pulled randomly from the books, and so may
@@ -20,6 +19,7 @@ export default function GeneralBookPage({
             this replace your reading!
           </p>
         </header>
+      <div className="grid grid-cols-2 items-center justify-center m-3 gap-3">
         <div>
           <GenerateID_Button names_to_hide={names} formatSrc={formatSrc} />
         </div>
