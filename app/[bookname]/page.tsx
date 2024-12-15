@@ -43,6 +43,12 @@ const books: { [id: string]: BookInfo; } = {
       "book_src": "/little_women_book_1.pdf",
       "names":"Jo,Meg,Beth,Amy,Laurie",
       "format_src": "little_women.json"
+    },
+    "project_gutenberg":{
+      "title": "Project Gutenberg",
+      "book_src": "/project_gutenberg.pdf",
+      "names":"Anne, Captain Wentworth, Sir Walter, Admiral Croft, Elizabeth, Mary, Charles Musgrove, Mr. Elliot, Charles Hayter, Captain Benwick, Mrs. Smith, Louisa Musgrove, Captain Harville, Mr. Musgrove, Mrs. Musgrove, Henrietta Musgrove, Lady Russell, Miss Hamilton, Mrs. Croft",
+      "format_src": "project_gutenberg.json"
     }
 }
 export function generateStaticParams() {
