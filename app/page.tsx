@@ -26,6 +26,7 @@ export default function Home() {
           <BookCard link="unbearable_lightness" title="The Unbearable Lightness of Being" grade="12"/>
           <BookCard link="little_women" title="Little Women" grade="12" />
           <BookCard link="persuasion" title="Persuasion" grade="12"/>
+          <BookCard link="remains_of_the_day" title="The Remains of the Day" grade="12"/>
         </div>
         <div className="flex flex-col col-start-5 gap-4">
           <BookCard link="custom" title='Custom' grade="NONE"/>

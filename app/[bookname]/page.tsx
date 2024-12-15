@@ -49,6 +49,12 @@ const books: { [id: string]: BookInfo; } = {
       "book_src": "/persuasion.pdf",
       "names":"Anne, Captain Wentworth, Sir Walter, Admiral Croft, Elizabeth, Mary, Charles Musgrove, Elliot, Charles Hayter, Captain Benwick, Smith, Louisa Musgrove, Captain Harville, Mr Musgrove, Mrs Musgrove, Henrietta Musgrove, Lady Russell, Miss Hamilton, Mrs Croft",
       "format_src": "persuasion.json"
+    },
+    "remains_of_the_day":{
+      "title": "The Remains of the Day",
+      "book_src": "/remains_of_the_day.pdf",
+      "names":"Stevens, Miss Kenton, Lord Darlington, Mr Farraday, Mr Cardinal, Mr Spencer, Mr Taylor, Mr Graham, Mr Smith, Mr Stevens, Mr Marshall, Mr Lane, Mr Benn",
+      "format_src": "remains_of_the_day.json"
     }
 }
 export function generateStaticParams() {
