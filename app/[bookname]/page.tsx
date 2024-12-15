@@ -44,11 +44,11 @@ const books: { [id: string]: BookInfo; } = {
       "names":"Jo,Meg,Beth,Amy,Laurie",
       "format_src": "little_women.json"
     },
-    "project_gutenberg":{
-      "title": "Project Gutenberg",
-      "book_src": "/project_gutenberg.pdf",
+    "persuasion":{
+      "title": "Persuasion",
+      "book_src": "/persuasion.pdf",
       "names":"Anne, Captain Wentworth, Sir Walter, Admiral Croft, Elizabeth, Mary, Charles Musgrove, Mr. Elliot, Charles Hayter, Captain Benwick, Mrs. Smith, Louisa Musgrove, Captain Harville, Mr. Musgrove, Mrs. Musgrove, Henrietta Musgrove, Lady Russell, Miss Hamilton, Mrs. Croft",
-      "format_src": "project_gutenberg.json"
+      "format_src": "persuasion.json"
     }
 }
 export function generateStaticParams() {
