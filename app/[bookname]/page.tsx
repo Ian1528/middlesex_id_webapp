@@ -47,7 +47,7 @@ const books: { [id: string]: BookInfo; } = {
     "persuasion":{
       "title": "Persuasion",
       "book_src": "/persuasion.pdf",
-      "names":"Anne, Captain Wentworth, Sir Walter, Admiral Croft, Elizabeth, Mary, Charles Musgrove, Mr. Elliot, Charles Hayter, Captain Benwick, Mrs. Smith, Louisa Musgrove, Captain Harville, Mr. Musgrove, Mrs. Musgrove, Henrietta Musgrove, Lady Russell, Miss Hamilton, Mrs. Croft",
+      "names":"Anne, Captain Wentworth, Sir Walter, Admiral Croft, Elizabeth, Mary, Charles Musgrove, Elliot, Charles Hayter, Captain Benwick, Smith, Louisa Musgrove, Captain Harville, Mr Musgrove, Mrs Musgrove, Henrietta Musgrove, Lady Russell, Miss Hamilton, Mrs Croft",
       "format_src": "persuasion.json"
     }
 }
