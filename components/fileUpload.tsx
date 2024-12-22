@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from './ui/input';
-import { text } from 'stream/consumers';
 
-const UploadPDF = ({ textFile, setTextFile } : { textFile: string | null, setTextFile: React.Dispatch<React.SetStateAction<string | null>>
+const UploadTextfile = ({ textFile, setTextFile } : { textFile: string | null, setTextFile: React.Dispatch<React.SetStateAction<string | null>>
 }) => {
   const [file, setFile] = useState<File>();
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,4 +80,4 @@ const UploadPDF = ({ textFile, setTextFile } : { textFile: string | null, setTex
   );
 };
 
-export default UploadPDF;
+export default UploadTextfile;

@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { SetStateAction, useState, useEffect } from "react";
-import UploadPDF from "@/components/PDFUpload";
-
+import UploadTextfile from "@/components/fileUpload";
 export default function Page() {
   const [textFile, setTextFile] = useState<string | null>(null);
   const [id, setId] = useState<string | null>(null);
@@ -14,7 +13,7 @@ export default function Page() {
         {
           textFile && (
             <div>
-            <GenerateID_Button setID={setId} />
+            <Generate_ID_Button setID={setId} />
             {id && (
               <div className="items-center p-10">
                 <p className="mb-6 whitespace-pre-line">{id}</p>
@@ -24,14 +23,14 @@ export default function Page() {
           )
         }
         <div className="items-center justify-center m-auto">
-        <UploadPDF textFile={textFile} setTextFile={setTextFile}/>
+        <UploadTextfile textFile={textFile} setTextFile={setTextFile}/>
         </div>
 
     </div>
   );
 }
 
-function GenerateID_Button({setID}: {setID: React.Dispatch<SetStateAction<string | null>>}) {
+function Generate_ID_Button({setID}: {setID: React.Dispatch<SetStateAction<string | null>>}) {
   const [lines, setLines] = useState<number>(40);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [names, setNames] = useState<string>("");

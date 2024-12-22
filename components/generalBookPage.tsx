@@ -1,4 +1,4 @@
-import GenerateID_Button from "./generateID";
+import Generate_ID_Button from "./generateID";
 
 export default function GeneralBookPage({
   bookSrc,
@@ -21,7 +21,7 @@ export default function GeneralBookPage({
         </header>
       <div className="grid grid-cols-2 items-center justify-center m-3 gap-3">
         <div>
-          <GenerateID_Button names_to_hide={names} formatSrc={formatSrc} />
+          <Generate_ID_Button names_to_hide={names} formatSrc={formatSrc} />
         </div>
         <div>
           <h1 className="grid place-items-center pb-4">

@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
-export default function GenerateID_Button({
+export default function Generate_ID_Button({
      names_to_hide, formatSrc
   }: {
       names_to_hide: string;
