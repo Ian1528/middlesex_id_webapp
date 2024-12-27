@@ -4,7 +4,16 @@ import os
 from nltk.tokenize import sent_tokenize
 import numpy as np
 
-def removeJunk(text):
+def removeJunk(text: list[str]) -> list[str]:
+    """
+    Removes junk lines from the text file
+
+    Args:
+        text (list[str]): List of lines from the text file
+    
+    Returns:
+        list[str]: List containing cleaned lines
+    """
     text_clean = list()
     for line in text:
         addLine = True
@@ -28,10 +37,15 @@ def removeJunk(text):
             text_clean.append(line)
     return text_clean
 
-def chunkQuotes(text):
+def chunkQuotes(text: list[str]) -> list[list[str]]:
     """
-    text: list of sentences, including names like HAMLET
-    returns: 2d list of quote chunks
+    Splits the text into quotes from different characters
+
+    Args:
+        text (list[str]): list of lines from the text
+
+    Returns:
+        list[list[str]]: list of quotes from different characters
     """
 
     allQuotes = list()
@@ -45,20 +59,16 @@ def chunkQuotes(text):
             chunk = list()
     return allQuotes
 
-def filterLength(quoteChunks, n):
+def cleanNames(s: str) -> str:
     """
-    quoteChunks: 2d list containing lists of strings which are lines
-    n: minimum number of lines in each id
-    Returns an array containing only quotes that are at least n lines long
+    Blurs names in the text
+
+    Args:
+        s (str): text to be cleaned
+
+    Returns:
+        str: cleaned text
     """
-    filteredQuotes = list()
-
-    for quotes in quoteChunks:
-        if len(quotes) >= n:
-            filteredQuotes.append(quotes)
-    return filteredQuotes
-
-def cleanNames(s):
     for name in names:
         if name == "All" or name == "OTHER":
             continue
@@ -66,10 +76,28 @@ def cleanNames(s):
     return s
 
 
-def filter_paragraph_length(paragraphs: list[str], word_count):
+def filter_paragraph_length(paragraphs: list[list[str]], word_count: int) -> list[str]:
+    """
+    Filters paragraphs based on a minimum word count.
+    Args:
+        paragraphs (list[list[str]]): A list of paragraphs, where each paragraph is a list of strings (lines).
+        word_count (int): The minimum number of words a paragraph must have to be included in the result.
+    Returns:
+        list[str]: A list of paragraphs (as single strings) that meet or exceed the minimum word count.
+    """
+
     return ["\n".join(p) for p in paragraphs if len("\n".join(p).split()) >= word_count]
 
-def generate_id(paragraphs: list[str], word_count):
+def generate_id(paragraphs: list[list[str]], word_count: int) -> str:
+    """
+    Generates a quote from a list of paragraphs with a specified word count.
+    Args:
+        paragraphs (list[list[str]]): A list of paragraphs, where each paragraph is a list of sentences.
+        word_count (int): The minimum word count for the generated quote.
+    Returns:
+        str: A quote with the specified word count.
+    """
+
     filtered_paragraphs = filter_paragraph_length(paragraphs, word_count)
     paragraph = random.choice(filtered_paragraphs)
     sentences = sent_tokenize(paragraph)
@@ -101,9 +129,9 @@ quotes = chunkQuotes(text_clean)
 
 def generate_Hamlet_ID(n: int, hide_names: bool) -> str:
     """
-    generates an ID for Hamlet given the minimum number of lines
+    Generates an ID for Hamlet given the minimum number of lines. Called by the API.
     Args:
-        n (int): minimum number of lines
+        n (int): minimum number of words
 
     Returns:
         str: the generated ID
